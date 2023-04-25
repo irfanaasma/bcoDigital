@@ -1,0 +1,106 @@
+Understanding GitHub acions
+Overview:
+         GitHub actions is a continuous integration or delivery platform that allows you to automates your build,test and deployment pipline
+         GitHub Actions goes beyond just DevOps and lets you run workflows when other events happen in your repository.
+
+Components:
+configuration of github action workflow is triggered when an event occurs in repository
+ Each job will run inside its own virtual machine runner, or inside a container. run a script that you define or run an action, which is a reusable extension that can simplify your workflow.
+
+Workflow:
+   A workflow is a configurable automated process that will run one or more jobs.
+Workflows are defined in the .github/workflows directory in a repository, and a repository can have multiple workflows, each of which can perform a different set of tasks.
+
+Events:
+      An event is a specific activity in a repository that triggers a workflow run.
+
+Job: 
+      A job is a set of steps in a workflow that is executed on the same runner. Each step is either a shell script that will be executed,
+       or an action that will be run. Steps are executed in order and are dependent on each other. 
+
+Actions: 
+An action is a custom application for the GitHub Actions platform that performs a complex but frequently repeated tasks.It helps to reduce the amount of repitative code.
+
+Runner:  
+         runner is a server that runs your workflows when they're triggered. Runs single job at a time. 
+
+Creating workflow:  GitHub Actions uses YAML syntax to define the workflow. Each workflow will be stored in separate YAML file. in a directory named .github/workflows.
+
+Repository that automatically triggers a series of commands whenever code is pushed. GitHub Actions checks out the pushed code, installs the bats testing framework, and runs a basic command  to output the bats version: bats -v
+
+In your repository, create the .github/workflows/ directory to store your workflow files.
+
+In the .github/workflows/ directory, create a new file called learn-github-actions.yml
+
+Commit the changes and push them to your GitHub repository.
+GitHub Actions workflow file is now installed in your repository and will run automatically each time someone pushes a change to the repository.
+
+
+Understanding workflow file:
+
+name: learn-github-actions  --  The name of the workflow as it will appear in the "Actions" tab of the GitHub repository.
+run-name: ${{ github.actor }} is learning GitHub Actions --  The name for workflow runs generated from the workflow, which will appear in 
+                                                             the list of workflow runs on your repository's "Actions" tab.  
+
+on: [push] --  specifies the trigger for the workflow.
+
+jobs:
+Groups together all the jobs that run in the learn-github-actions workflow.
+
+check-bats-version:  Defines a job named check-bats-version. The child keys will define properties of the job.
+
+runs-on: ubuntu-latest -- Configures the job to run on the latest version of an Ubuntu Linux runner. This means that the job
+                           will execute on a fresh virtual machine hosted by GitHub.
+
+steps: -- Groups together all the steps that run in the check-bats-version job. Each item nested under this section is a separate action or shell script.
+
+   - uses: actions/checkout@v3 --  the uses keyword specifies that this step will run v3 of the actions/checkout action. This is an action that checks out your repositor on to the on to the runner
+
+
+- uses: actions/setup-node@v3
+      with:
+        node-version: '14'--  this step uses the actions/setup-node@v3 action to install the specified version of the Node.j.
+
+
+ - run: npm install -g bats -- The run keyword tells the job to execute a command on the runner. 
+
+ - run: bats -v -- The run keyword tells the job to execute a command on the runner. In this case, you are using npm to install the 
+                    bats 
+
+
+   - run: bats -v -- Finally, you'll run the bats command with a parameter that outputs the software version.software testing package.
+
+
+Viewing the activity for a workflow run:
+
+On GitHub.com, navigate to the main page of the repository
+Under your repository name, click  Actions.
+In the left sidebar, click the workflow you want to see.
+From the list of workflow runs, click the name of the run to see the workflow run summary
+In the left sidebar or in the visualization graph, click the job you want to see.
+To view the results of a step, click the step
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
